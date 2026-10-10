@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 import { Phone, Mail, MapPin, Clock, Send, CheckCircle, Shield } from 'lucide-react';
+import { btn, card, CTAStrip, Highlight, IconBadge, SectionHeading } from '../components/ui.jsx';
+
+const inputClass =
+  'w-full rounded-2xl border border-slate-200 bg-slate-50 px-5 py-3.5 text-slate-900 placeholder:text-slate-400 transition-all focus:border-violet-400 focus:bg-white focus:outline-none focus:ring-4 focus:ring-violet-100';
+
+const labelClass = 'mb-2 block text-sm font-semibold text-slate-700';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -28,21 +34,21 @@ export default function Contact() {
 
   const contactMethods = [
     {
-      icon: <Phone className="w-8 h-8" />,
+      icon: <Phone className="h-7 w-7" />,
       title: "Call Us",
       details: ["+91-7988519924", "+91-9717979991"],
       description: "Available 7 days a week for your convenience",
-      action: "tel:+917988519924"
+      action: (detail) => `tel:${detail.replace(/-/g, '')}`
     },
     {
-      icon: <Mail className="w-8 h-8" />,
+      icon: <Mail className="h-7 w-7" />,
       title: "Email Us",
       details: ["rvtranslogistics@gmail.com"],
       description: "We'll respond within 24 hours",
-      action: "mailto:rvtranslogistics@gmail.com"
+      action: (detail) => `mailto:${detail}`
     },
     {
-      icon: <Shield className="w-8 h-8" />,
+      icon: <Shield className="h-7 w-7" />,
       title: "GST Details",
       details: ["GST: 06ABKFR2142R1ZP", "Reg: U63000HR2015PTC216848"],
       description: "Fully compliant operations",
@@ -88,49 +94,38 @@ export default function Contact() {
   ];
 
   return (
-    <div id="contact" className="pt-20">
-      {/* Hero Section */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-orange-600/10 via-transparent to-orange-500/10"></div>
-        
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-orange-400 font-bold tracking-widest text-sm">GET IN TOUCH</span>
-          <h1 className="text-5xl md:text-7xl font-black mt-4 mb-6">
-            Let's Start <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Your Journey</span>
-          </h1>
-          <p className="text-slate-300 text-xl max-w-3xl mx-auto leading-relaxed">
-            Whether you're planning a personal move, need vehicle transportation, or require corporate logistics solutions, we're here to help.
-          </p>
-        </div>
-      </section>
+    <div id="contact">
+      <section className="relative overflow-hidden py-24">
+        <div className="bg-grid absolute inset-0"></div>
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            eyebrow="Get In Touch"
+            title={<>Let's Start <Highlight>Your Journey</Highlight></>}
+            description="Whether you're planning a personal move, need vehicle transportation, or require corporate logistics solutions, we're here to help."
+          />
 
-      {/* Contact Methods */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-3 gap-8">
+          {/* Contact Methods */}
+          <div className="mt-16 grid gap-6 md:grid-cols-3">
             {contactMethods.map((method, index) => (
-              <div
-                key={index}
-                className="bg-gradient-to-br from-slate-900 to-slate-800 p-8 rounded-3xl border border-slate-700 hover:border-orange-500/50 transition-all duration-300 text-center"
-              >
-                <div className="bg-orange-500/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 text-orange-400">
+              <div key={index} className={`reveal p-8 text-center ${card}`}>
+                <IconBadge size="lg" className="mx-auto mb-6 !rounded-full">
                   {method.icon}
-                </div>
-                <h3 className="text-xl font-bold mb-4 text-white">{method.title}</h3>
+                </IconBadge>
+                <h3 className="mb-4 text-xl font-bold text-slate-900">{method.title}</h3>
                 {method.details.map((detail, idx) => (
                   method.action ? (
                     <a
                       key={idx}
-                      href={method.action}
-                      className="block text-orange-400 font-semibold mb-2 hover:text-orange-300 transition-colors"
+                      href={method.action(detail)}
+                      className="mb-1.5 block break-all font-semibold text-violet-900 transition-colors hover:text-violet-900"
                     >
                       {detail}
                     </a>
                   ) : (
-                    <p key={idx} className="text-slate-300 text-sm mb-1">{detail}</p>
+                    <p key={idx} className="mb-1 text-sm font-medium text-slate-700">{detail}</p>
                   )
                 ))}
-                <p className="text-slate-400 text-sm mt-4">{method.description}</p>
+                <p className="mt-4 text-sm text-slate-500">{method.description}</p>
               </div>
             ))}
           </div>
@@ -138,78 +133,82 @@ export default function Contact() {
       </section>
 
       {/* Contact Form & Info */}
-      <section className="py-24 bg-gradient-to-br from-slate-900 via-orange-950/20 to-slate-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12">
+      <section className="bg-slate-50 py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-8 lg:grid-cols-5">
             {/* Contact Form */}
-            <div>
-              <h2 className="text-3xl md:text-4xl font-black mb-6">
-                Send Us a <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Message</span>
+            <div className="reveal rounded-[2rem] bg-white p-6 shadow-lift ring-1 ring-slate-200/80 md:p-10 lg:col-span-3">
+              <h2 className="text-3xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
+                Send Us a <Highlight>Message</Highlight>
               </h2>
-              <p className="text-slate-400 mb-8">
+              <p className="mt-3 text-slate-600">
                 Fill out the form below and we'll get back to you within 24 hours with a detailed quote.
               </p>
 
               {submitted && (
-                <div className="bg-green-500/10 border border-green-500/50 rounded-2xl p-6 mb-6 flex items-center gap-4">
-                  <CheckCircle className="w-6 h-6 text-green-400 flex-shrink-0" />
+                <div className="mt-6 flex items-center gap-4 rounded-2xl bg-emerald-50 p-5 ring-1 ring-emerald-200">
+                  <CheckCircle className="h-6 w-6 flex-shrink-0 text-emerald-600" />
                   <div>
-                    <h4 className="text-green-400 font-bold mb-1">Message Sent Successfully!</h4>
-                    <p className="text-slate-300 text-sm">We'll get back to you shortly.</p>
+                    <h4 className="font-bold text-emerald-800">Message Sent Successfully!</h4>
+                    <p className="text-sm text-emerald-700">We'll get back to you shortly.</p>
                   </div>
                 </div>
               )}
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="mt-8 space-y-5">
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-2">Full Name *</label>
+                  <label htmlFor="contact-name" className={labelClass}>Full Name *</label>
                   <input
+                    id="contact-name"
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full bg-slate-800/50 border border-slate-700 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-orange-500 transition-colors"
+                    className={inputClass}
                     placeholder="Enter your full name"
                   />
                 </div>
 
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid gap-5 md:grid-cols-2">
                   <div>
-                    <label className="block text-slate-300 font-semibold mb-2">Email *</label>
+                    <label htmlFor="contact-email" className={labelClass}>Email *</label>
                     <input
+                      id="contact-email"
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="w-full bg-slate-800/50 border border-slate-700 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-orange-500 transition-colors"
+                      className={inputClass}
                       placeholder="your@email.com"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-slate-300 font-semibold mb-2">Phone *</label>
+                    <label htmlFor="contact-phone" className={labelClass}>Phone *</label>
                     <input
+                      id="contact-phone"
                       type="tel"
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
                       required
-                      className="w-full bg-slate-800/50 border border-slate-700 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-orange-500 transition-colors"
+                      className={inputClass}
                       placeholder="+91-XXXXXXXXXX"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-2">Service Required *</label>
+                  <label htmlFor="contact-service" className={labelClass}>Service Required *</label>
                   <select
+                    id="contact-service"
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
                     required
-                    className="w-full bg-slate-800/50 border border-slate-700 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-orange-500 transition-colors"
+                    className={inputClass}
                   >
                     <option value="">Select a service</option>
                     {services.map((service, index) => (
@@ -219,62 +218,64 @@ export default function Contact() {
                 </div>
 
                 <div>
-                  <label className="block text-slate-300 font-semibold mb-2">Message</label>
+                  <label htmlFor="contact-message" className={labelClass}>Message</label>
                   <textarea
+                    id="contact-message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     rows="5"
-                    className="w-full bg-slate-800/50 border border-slate-700 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-orange-500 transition-colors resize-none"
+                    className={`${inputClass} resize-none`}
                     placeholder="Tell us about your requirements..."
                   ></textarea>
                 </div>
 
-                <button
-                  type="submit"
-                  className="w-full bg-gradient-to-r from-orange-600 to-orange-500 px-8 py-4 rounded-full font-bold text-lg hover:shadow-lg hover:shadow-orange-500/50 transition-all duration-300 flex items-center justify-center gap-2"
-                >
-                  <Send className="w-5 h-5" />
+                <button type="submit" className={`${btn.primary} w-full text-lg`}>
+                  <Send className="h-5 w-5" />
                   Send Message
                 </button>
               </form>
             </div>
 
             {/* Benefits & Info */}
-            <div className="space-y-8">
-              <div className="bg-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700">
-                <h3 className="text-2xl font-bold mb-6 text-white">Why Contact Us?</h3>
+            <div className="space-y-6 lg:col-span-2">
+              <div className="reveal rounded-[2rem] bg-white p-8 shadow-soft ring-1 ring-slate-200/80">
+                <h3 className="mb-6 text-xl font-bold text-slate-900">Why Contact Us?</h3>
                 <div className="space-y-4">
                   {benefits.map((benefit, index) => (
                     <div key={index} className="flex items-start gap-3">
-                      <CheckCircle className="w-5 h-5 text-orange-400 flex-shrink-0 mt-0.5" />
-                      <span className="text-slate-300">{benefit}</span>
+                      <CheckCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-violet-800" />
+                      <span className="text-slate-700">{benefit}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-orange-600/20 to-orange-500/20 rounded-3xl border border-orange-500/30 p-8">
-                <Clock className="w-12 h-12 text-orange-400 mb-4" />
-                <h3 className="text-2xl font-bold mb-4 text-white">Quick Response Time</h3>
-                <p className="text-slate-300 leading-relaxed">
+              <div className="reveal relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-violet-800 to-purple-600 p-8 text-white shadow-xl shadow-violet-800/20">
+                <div className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/10"></div>
+                <Clock className="relative mb-4 h-10 w-10" />
+                <h3 className="relative mb-3 text-xl font-bold">Quick Response Time</h3>
+                <p className="relative leading-relaxed text-violet-50">
                   We understand that time is valuable. Our team is committed to responding to all inquiries within 24 hours with detailed, transparent quotations and expert advice.
                 </p>
               </div>
 
-              <div className="bg-slate-800/50 backdrop-blur-sm p-8 rounded-3xl border border-slate-700">
-                <h3 className="text-2xl font-bold mb-6 text-white">Operating Hours</h3>
+              <div className="reveal rounded-[2rem] bg-white p-8 shadow-soft ring-1 ring-slate-200/80">
+                <h3 className="mb-6 text-xl font-bold text-slate-900">Operating Hours</h3>
                 <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-slate-400">Monday - Friday</span>
-                    <span className="text-white font-semibold">9:00 AM - 7:00 PM</span>
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-slate-500">Monday - Friday</span>
+                    <span className="font-semibold text-slate-900">9:00 AM - 7:00 PM</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-slate-400">Saturday - Sunday</span>
-                    <span className="text-white font-semibold">9:00 AM - 6:00 PM</span>
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-slate-500">Saturday - Sunday</span>
+                    <span className="font-semibold text-slate-900">9:00 AM - 6:00 PM</span>
                   </div>
-                  <div className="pt-3 border-t border-slate-700">
-                    <p className="text-orange-400 text-sm">24/7 Emergency Support Available</p>
+                  <div className="border-t border-slate-100 pt-3">
+                    <p className="flex items-center gap-2 text-sm font-semibold text-emerald-700">
+                      <span className="h-2 w-2 rounded-full bg-emerald-500"></span>
+                      24/7 Emergency Support Available
+                    </p>
                   </div>
                 </div>
               </div>
@@ -285,62 +286,55 @@ export default function Contact() {
 
       {/* Office Locations */}
       <section className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="text-orange-400 font-bold tracking-widest text-sm">OUR OFFICES</span>
-            <h2 className="text-4xl md:text-5xl font-black mt-4 mb-6">
-              Visit Us <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Anytime</span>
-            </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              We have two strategic locations to serve you better across India
-            </p>
-          </div>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            eyebrow="Our Offices"
+            title={<>Visit Us <Highlight>Anytime</Highlight></>}
+            description="We have two strategic locations to serve you better across India"
+          />
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="mt-16 grid gap-8 md:grid-cols-2">
             {offices.map((office, index) => (
-              <div
-                key={index}
-                className="bg-gradient-to-br from-slate-900 to-slate-800 p-8 rounded-3xl border border-slate-700 hover:border-orange-500/50 transition-all duration-300"
-              >
-                <div className="flex items-start gap-4 mb-6">
-                  <div className="bg-orange-500/10 p-3 rounded-xl">
-                    <MapPin className="w-6 h-6 text-orange-400" />
-                  </div>
+              <div key={index} className={`reveal p-8 ${card}`}>
+                <div className="mb-6 flex items-start gap-4">
+                  <IconBadge>
+                    <MapPin className="h-6 w-6" />
+                  </IconBadge>
                   <div>
-                    <h3 className="text-2xl font-bold mb-2 text-white">{office.title}</h3>
-                    <p className="text-orange-400 font-semibold">{office.location}</p>
+                    <h3 className="text-2xl font-bold text-slate-900">{office.title}</h3>
+                    <p className="font-semibold text-violet-900">{office.location}</p>
                   </div>
                 </div>
 
-                <div className="space-y-4">
+                <dl className="space-y-4">
                   <div>
-                    <h4 className="text-slate-400 text-sm font-semibold mb-2">Address:</h4>
-                    <p className="text-slate-300 leading-relaxed">{office.address}</p>
+                    <dt className="mb-1 text-xs font-bold uppercase tracking-wider text-slate-400">Address</dt>
+                    <dd className="leading-relaxed text-slate-700">{office.address}</dd>
                   </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <dt className="mb-1 text-xs font-bold uppercase tracking-wider text-slate-400">Phone</dt>
+                      <dd>
+                        <a
+                          href={`tel:${office.phone.replace(/-/g, '')}`}
+                          className="font-semibold text-violet-900 transition-colors hover:text-violet-900"
+                        >
+                          {office.phone}
+                        </a>
+                      </dd>
+                    </div>
+                    <div>
+                      <dt className="mb-1 text-xs font-bold uppercase tracking-wider text-slate-400">Hours</dt>
+                      <dd className="text-slate-700">{office.hours}</dd>
+                    </div>
+                  </div>
+                </dl>
 
-                  <div>
-                    <h4 className="text-slate-400 text-sm font-semibold mb-2">Phone:</h4>
-                    <a
-                      href={`tel:${office.phone}`}
-                      className="text-orange-400 font-semibold hover:text-orange-300 transition-colors"
-                    >
-                      {office.phone}
-                    </a>
-                  </div>
-
-                  <div>
-                    <h4 className="text-slate-400 text-sm font-semibold mb-2">Hours:</h4>
-                    <p className="text-slate-300">{office.hours}</p>
-                  </div>
-
-                  <div className="pt-4 border-t border-slate-700">
-                    <a
-                      href={`tel:${office.phone}`}
-                      className="inline-block bg-orange-600 hover:bg-orange-700 px-6 py-3 rounded-full font-semibold transition-colors"
-                    >
-                      Call This Office
-                    </a>
-                  </div>
+                <div className="mt-6 border-t border-slate-100 pt-6">
+                  <a href={`tel:${office.phone.replace(/-/g, '')}`} className={`${btn.dark} !px-6 !py-3`}>
+                    <Phone className="h-4 w-4" />
+                    Call This Office
+                  </a>
                 </div>
               </div>
             ))}
@@ -348,36 +342,19 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-24 bg-slate-900/50">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-black mb-6">
-            Ready for <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Hassle-Free</span> Relocation?
-          </h2>
-          <p className="text-slate-300 text-xl mb-8 max-w-2xl mx-auto">
-            Don't wait! Get your free quote today and discover why thousands of customers trust RV Trans Logistics.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <a
-              href="tel:+917988519924"
-              className="bg-gradient-to-r from-orange-600 to-orange-500 px-10 py-4 rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105"
-            >
-              Call: +91-7988519924
-            </a>
-            <a
-              href="mailto:rvtranslogistics@gmail.com"
-              className="border-2 border-orange-500 px-10 py-4 rounded-full font-bold text-lg hover:bg-orange-500/10 transition-all duration-300"
-            >
-              Email: rvtranslogistics@gmail.com
-            </a>
-          </div>
-
-          <p className="text-slate-400 text-sm">
-            Free consultation • No obligation quotes • Dedicated support • 24/7 availability
-          </p>
-        </div>
-      </section>
+      <CTAStrip
+        title={<>Ready for <Highlight>Hassle-Free</Highlight> Relocation?</>}
+        description="Don't wait! Get your free quote today and discover why thousands of customers trust RV Trans Logistics."
+      >
+        <a href="tel:+917988519924" className={btn.primary}>
+          <Phone className="h-5 w-5" />
+          Call: +91-7988519924
+        </a>
+        <a href="mailto:rvtranslogistics@gmail.com" className={btn.outline}>
+          <Mail className="h-5 w-5" />
+          Email Us
+        </a>
+      </CTAStrip>
     </div>
   );
 }

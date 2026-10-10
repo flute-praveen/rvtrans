@@ -1,105 +1,153 @@
-import React, { useState } from 'react';
-import { Menu, X, Phone, Mail, MapPin, Truck } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Menu, X, Phone, Mail, MapPin, Truck, ArrowRight, ArrowUp } from 'lucide-react';
 import Home from './pages/Home.jsx';
 import Services from './pages/Services.jsx';
 import About from './pages/About.jsx';
 import Fleet from './pages/Fleet.jsx';
 import Gallery from './pages/Gallery.jsx';
 import Contact from './pages/Contact.jsx';
+import { btn } from './components/ui.jsx';
+
+const navLinks = [
+  { name: 'Home', href: '#home' },
+  { name: 'Services', href: '#services' },
+  { name: 'About', href: '#about' },
+  { name: 'Fleet', href: '#fleet' },
+  { name: 'Gallery', href: '#gallery' },
+  { name: 'Contact', href: '#contact' }
+];
+
+function Logo({ compact = false }) {
+  return (
+    <a href="#home" className="flex items-center gap-3">
+      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-violet-800 to-purple-600 shadow-lg shadow-violet-800/30">
+        <Truck className="h-6 w-6 text-white" />
+      </div>
+      <div className="leading-tight">
+        <div className="text-lg font-extrabold tracking-tight text-slate-900">RV TRANS</div>
+        <div className={`text-[10px] font-semibold tracking-[0.25em] text-slate-500 ${compact ? 'hidden sm:block' : ''}`}>
+          LOGISTICS LLP
+        </div>
+      </div>
+    </a>
+  );
+}
 
 // Navigation Component
 export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = React.useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
-  React.useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Services', href: '#services' },
-    { name: 'About', href: '#about' },
-    { name: 'Fleet', href: '#fleet' },
-    { name: 'Gallery', href: '#gallery' },
-    { name: 'Contact', href: '#contact' }
-  ];
+  // Highlight the nav link for the section currently in view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id);
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px' }
+    );
+    navLinks.forEach((link) => {
+      const el = document.querySelector(link.href);
+      if (el) observer.observe(el);
+    });
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-slate-900/95 backdrop-blur-lg shadow-2xl' : 'bg-transparent'}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          <a href="#home" className="flex items-center space-x-3">
-            <div className="relative">
-              <div className="absolute inset-0 bg-orange-600 blur-xl opacity-50"></div>
-              <Truck className="w-10 h-10 text-orange-500 relative z-10" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-black tracking-tight bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">
-                RV TRANS
-              </h1>
-              <p className="text-xs text-slate-400 tracking-widest">LOGISTICS LLP</p>
-            </div>
-          </a>
+    <nav className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-4 sm:pt-4">
+      <div
+        className={`mx-auto max-w-7xl rounded-2xl border bg-white/80 backdrop-blur-xl transition-all duration-500 ${
+          isScrolled ? 'border-slate-200/80 shadow-lift' : 'border-white/60 shadow-soft'
+        }`}
+      >
+        <div className="flex h-16 items-center justify-between px-4 sm:px-5">
+          <Logo compact />
 
           {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center space-x-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-slate-300 hover:text-orange-400 transition-colors duration-300 font-medium relative group"
-              >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-orange-500 group-hover:w-full transition-all duration-300"></span>
-              </a>
-            ))}
+          <div className="hidden items-center gap-1 lg:flex">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.slice(1);
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors duration-300 ${
+                    isActive ? 'bg-violet-50 text-violet-900' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                  }`}
+                >
+                  {link.name}
+                </a>
+              );
+            })}
+          </div>
+
+          <div className="hidden items-center gap-3 lg:flex">
             <a
-              href="#contact"
-              className="bg-gradient-to-r from-orange-600 to-orange-500 px-6 py-2.5 rounded-full font-semibold hover:shadow-lg hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105"
+              href="tel:+917988519924"
+              className="hidden items-center gap-2 text-sm font-semibold text-slate-700 transition-colors hover:text-violet-900 xl:flex"
             >
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100">
+                <Phone className="h-4 w-4" />
+              </span>
+              +91-7988519924
+            </a>
+            <a href="#contact" className={`${btn.dark} !px-5 !py-2.5 text-sm`}>
               Get Quote
+              <ArrowRight className="h-4 w-4" />
             </a>
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden text-white"
+            className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-900 lg:hidden"
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
-      </div>
 
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-slate-900/98 backdrop-blur-xl border-t border-slate-800">
-          <div className="px-4 py-6 space-y-4">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="block text-slate-300 hover:text-orange-400 transition-colors duration-300 font-medium py-2"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                {link.name}
-              </a>
-            ))}
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="border-t border-slate-200/80 px-4 pb-5 pt-3 lg:hidden">
+            <div className="grid gap-1">
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.href.slice(1);
+                return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    className={`rounded-xl px-4 py-3 font-semibold transition-colors ${
+                      isActive ? 'bg-violet-50 text-violet-900' : 'text-slate-700 hover:bg-slate-50'
+                    }`}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </a>
+                );
+              })}
+            </div>
             <a
               href="#contact"
-              className="block bg-gradient-to-r from-orange-600 to-orange-500 px-6 py-3 rounded-full font-semibold text-center"
+              className={`${btn.primary} mt-4 w-full`}
               onClick={() => setMobileMenuOpen(false)}
             >
               Get Quote
+              <ArrowRight className="h-4 w-4" />
             </a>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </nav>
   );
 }
@@ -109,84 +157,82 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-slate-950 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid md:grid-cols-4 gap-8 mb-12">
-          <div className="col-span-2">
-            <div className="flex items-center space-x-3 mb-4">
-              <Truck className="w-8 h-8 text-orange-500" />
-              <div>
-                <h3 className="text-xl font-black text-white">RV TRANS LOGISTICS LLP</h3>
-                <p className="text-xs text-slate-400">Transport Made Simple</p>
-              </div>
-            </div>
-            <p className="text-slate-400 mb-4 leading-relaxed">
-              Your trusted partner in relocation and vehicle transportation services since 2015. 
+    <footer className="border-t border-slate-200 bg-slate-50">
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mb-12 grid gap-10 md:grid-cols-4">
+          <div className="md:col-span-2">
+            <Logo />
+            <p className="mt-5 max-w-md leading-relaxed text-slate-600">
+              Your trusted partner in relocation and vehicle transportation services since 2015.
               We provide safe, reliable, and professional logistics solutions across India.
             </p>
-            <div className="flex gap-4">
-              <a href="tel:+917988519924" className="text-slate-400 hover:text-orange-400 transition-colors">
-                <Phone className="w-5 h-5" />
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href="tel:+917988519924"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-700 ring-1 ring-slate-200 transition-colors hover:text-violet-900 hover:ring-violet-200"
+              >
+                <Phone className="h-4 w-4 text-violet-800" />
+                +91-7988519924
               </a>
-              <a href="mailto:rvtranslogistics@gmail.com" className="text-slate-400 hover:text-orange-400 transition-colors">
-                <Mail className="w-5 h-5" />
+              <a
+                href="mailto:rvtranslogistics@gmail.com"
+                className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-700 ring-1 ring-slate-200 transition-colors hover:text-violet-900 hover:ring-violet-200"
+              >
+                <Mail className="h-4 w-4 text-violet-800" />
+                rvtranslogistics@gmail.com
               </a>
             </div>
           </div>
 
           <div>
-            <h4 className="text-white font-bold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              <li><a href="#home" className="text-slate-400 hover:text-orange-400 transition-colors">Home</a></li>
-              <li><a href="#services" className="text-slate-400 hover:text-orange-400 transition-colors">Services</a></li>
-              <li><a href="#about" className="text-slate-400 hover:text-orange-400 transition-colors">About Us</a></li>
-              <li><a href="#fleet" className="text-slate-400 hover:text-orange-400 transition-colors">Our Fleet</a></li>
-              <li><a href="#gallery" className="text-slate-400 hover:text-orange-400 transition-colors">Gallery</a></li>
-              <li><a href="#contact" className="text-slate-400 hover:text-orange-400 transition-colors">Contact</a></li>
+            <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-slate-900">Quick Links</h4>
+            <ul className="space-y-3">
+              {navLinks.map((link) => (
+                <li key={link.name}>
+                  <a href={link.href} className="text-slate-600 transition-colors hover:text-violet-900">
+                    {link.name === 'About' ? 'About Us' : link.name === 'Fleet' ? 'Our Fleet' : link.name}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
           <div>
-            <h4 className="text-white font-bold mb-4">Our Services</h4>
-            <ul className="space-y-2">
-              <li className="text-slate-400">Car Transportation</li>
-              <li className="text-slate-400">Bike Relocation</li>
-              <li className="text-slate-400">Warehouse Solutions</li>
-              <li className="text-slate-400">Art & Sculpture</li>
-              <li className="text-slate-400">Logistics Services</li>
+            <h4 className="mb-4 text-sm font-bold uppercase tracking-wider text-slate-900">Our Services</h4>
+            <ul className="space-y-3 text-slate-600">
+              <li>Car Transportation</li>
+              <li>Bike Relocation</li>
+              <li>Warehouse Solutions</li>
+              <li>Art & Sculpture</li>
+              <li>Logistics Services</li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-slate-800 pt-8">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h5 className="text-white font-semibold mb-3">Registered Office - Gurgaon</h5>
-              <p className="text-slate-400 text-sm flex items-start gap-2">
-                <MapPin className="w-4 h-4 mt-1 flex-shrink-0 text-orange-400" />
-                Shop No.1, Near Maruti Stock Yard, Opp. Bobby Dhaba, Carterpuri Road, Gurgaon-122017, Haryana
-              </p>
-            </div>
-            <div>
-              <h5 className="text-white font-semibold mb-3">Corporate Office - Navi Mumbai</h5>
-              <p className="text-slate-400 text-sm flex items-start gap-2">
-                <MapPin className="w-4 h-4 mt-1 flex-shrink-0 text-orange-400" />
-                Office no. 67, Kesar Garden, Plot no.53, Sector-20, Kharghar, Navi Mumbai-410210
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="border-t border-slate-800 mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-slate-400 text-sm">
-              © {currentYear} RV Trans Logistics LLP. All rights reserved. | Established 2015
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="rounded-2xl bg-white p-5 ring-1 ring-slate-200">
+            <h5 className="mb-2 font-bold text-slate-900">Registered Office - Gurgaon</h5>
+            <p className="flex items-start gap-2 text-sm text-slate-600">
+              <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-violet-800" />
+              Shop No.1, Near Maruti Stock Yard, Opp. Bobby Dhaba, Carterpuri Road, Gurgaon-122017, Haryana
             </p>
-            <div className="flex flex-wrap items-center gap-4 text-xs">
-              <span className="text-slate-400">GST: 06ABKFR2142R1ZP</span>
-              <span className="text-slate-500">|</span>
-              <span className="text-slate-400">Registration: U63000HR2015PTC216848</span>
-            </div>
+          </div>
+          <div className="rounded-2xl bg-white p-5 ring-1 ring-slate-200">
+            <h5 className="mb-2 font-bold text-slate-900">Corporate Office - Navi Mumbai</h5>
+            <p className="flex items-start gap-2 text-sm text-slate-600">
+              <MapPin className="mt-0.5 h-4 w-4 flex-shrink-0 text-violet-800" />
+              Office no. 67, Kesar Garden, Plot no.53, Sector-20, Kharghar, Navi Mumbai-410210
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-slate-200 pt-8 md:flex-row">
+          <p className="text-sm text-slate-500">
+            © {currentYear} RV Trans Logistics LLP. All rights reserved. | Established 2015
+          </p>
+          <div className="flex flex-wrap items-center gap-2 text-xs">
+            <span className="rounded-full bg-white px-3 py-1 text-slate-600 ring-1 ring-slate-200">GST: 06ABKFR2142R1ZP</span>
+            <span className="rounded-full bg-white px-3 py-1 text-slate-600 ring-1 ring-slate-200">Registration: U63000HR2015PTC216848</span>
           </div>
         </div>
       </div>
@@ -194,17 +240,68 @@ export function Footer() {
   );
 }
 
-export default function App() {
+function FloatingActions() {
+  const [showTop, setShowTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setShowTop(window.scrollY > 800);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-orange-950 text-white">
+    <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3">
+      <button
+        onClick={() => window.scrollTo({ top: 0 })}
+        aria-label="Back to top"
+        className={`flex h-11 w-11 items-center justify-center rounded-full bg-white text-slate-700 shadow-lift ring-1 ring-slate-200 transition-all duration-300 hover:text-violet-900 ${
+          showTop ? 'opacity-100' : 'pointer-events-none translate-y-3 opacity-0'
+        }`}
+      >
+        <ArrowUp className="h-5 w-5" />
+      </button>
+      <a
+        href="tel:+917988519924"
+        aria-label="Call RV Trans Logistics"
+        className="flex h-14 w-14 items-center justify-center rounded-full bg-violet-800 text-white shadow-xl shadow-violet-800/40 transition-transform duration-300 hover:scale-105 lg:hidden"
+      >
+        <Phone className="h-6 w-6" />
+      </a>
+    </div>
+  );
+}
+
+export default function App() {
+  // Fade sections in as they scroll into view
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className="min-h-screen overflow-x-hidden bg-white font-sans text-slate-900">
       <Navbar />
-      <Home />
-      <Services />
-      <About />
-      <Fleet />
-      <Gallery />
-      <Contact />
+      <main>
+        <Home />
+        <Services />
+        <About />
+        <Fleet />
+        <Gallery />
+        <Contact />
+      </main>
       <Footer />
+      <FloatingActions />
     </div>
   );
 }

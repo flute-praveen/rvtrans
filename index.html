@@ -5,64 +5,151 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="RV Trans Logistics LLP - Your trusted partner in vehicle transportation and relocation services since 2015. Safe, reliable, professional logistics solutions across India.">
   <meta name="keywords" content="car transportation, vehicle relocation, logistics, transport services, India">
+  <meta name="theme-color" content="#ffffff">
   <title>RV Trans Logistics LLP - Transport Made Simple</title>
-  
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Custom Animations -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'ui-sans-serif', 'system-ui', 'sans-serif']
+          },
+          boxShadow: {
+            soft: '0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px -12px rgba(15, 23, 42, 0.12)',
+            lift: '0 2px 4px rgba(15, 23, 42, 0.04), 0 24px 48px -16px rgba(15, 23, 42, 0.18)'
+          }
+        }
+      }
+    };
+  </script>
+
   <style>
-    @keyframes fade-in {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes slide-up {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .animate-fade-in {
-      animation: fade-in 0.8s ease-out forwards;
-    }
-
-    .animate-slide-up {
-      animation: slide-up 0.8s ease-out forwards;
-    }
-
-    /* Smooth scrolling */
     html {
       scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: #ffffff;
+      color: #0f172a;
+    }
+
+    /* Keep section headings clear of the floating navbar */
+    [id] {
+      scroll-margin-top: 96px;
+    }
+
+    @keyframes fade-up {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @keyframes drive {
+      0% { left: 10%; }
+      100% { left: 70%; }
+    }
+
+    @keyframes fill {
+      0% { width: 10%; }
+      100% { width: 70%; }
+    }
+
+    .animate-fade-up {
+      opacity: 0;
+      animation: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .animate-marquee {
+      animation: marquee 40s linear infinite;
+    }
+
+    .animate-drive {
+      animation: drive 6s ease-in-out infinite alternate;
+    }
+
+    .animate-fill {
+      width: 70%;
+      animation: fill 6s ease-in-out infinite alternate;
+    }
+
+    /* Scroll reveal (toggled by App.jsx) */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* Subtle blueprint grid used behind hero areas */
+    .bg-grid {
+      background-image:
+        linear-gradient(to right, rgba(15, 23, 42, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
+      background-size: 48px 48px;
+      -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+    }
+
+    .mask-fade-x {
+      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .animate-fade-up, .reveal { opacity: 1; transform: none; animation: none; transition: none; }
+      .animate-float, .animate-marquee, .animate-drive, .animate-fill { animation: none; }
+      .animate-drive { left: 70%; }
     }
 
     /* Custom scrollbar */
     ::-webkit-scrollbar {
-      width: 12px;
+      width: 10px;
     }
 
     ::-webkit-scrollbar-track {
-      background: #0f172a;
+      background: #f1f5f9;
     }
 
     ::-webkit-scrollbar-thumb {
-      background: #ea580c;
+      background: #cbd5e1;
       border-radius: 6px;
+      border: 2px solid #f1f5f9;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: #f97316;
+      background: #5b21b6;
+    }
+
+    ::selection {
+      background: #ddd6fe;
+      color: #0f172a;
     }
   </style>
 </head>

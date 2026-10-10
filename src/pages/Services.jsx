@@ -1,10 +1,11 @@
 import React from 'react';
-import { Truck, Warehouse, Package, ShieldCheck, CheckCircle, Clock, MapPin, Star } from 'lucide-react';
+import { Truck, Warehouse, Package, ShieldCheck, CheckCircle, Clock, MapPin, Star, Phone, Mail } from 'lucide-react';
+import { btn, card, CTAStrip, Eyebrow, Highlight, IconBadge, SectionHeading } from '../components/ui.jsx';
 
 export default function Services() {
   const services = [
     {
-      icon: <Truck className="w-10 h-10" />,
+      icon: <Truck className="h-7 w-7" />,
       title: "Single Car Carriers (Vehicle Relocation)",
       description: "Specialised car and bike relocation services using enclosed carriers, open trailers, and customised transport solutions tailored to your vehicle type and requirements.",
       features: [
@@ -15,10 +16,10 @@ export default function Services() {
         "Real-time GPS tracking",
         "Pre-transport inspection & documentation"
       ],
-      image: "🚗"
+      image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=900&h=500&fit=crop"
     },
     {
-      icon: <Warehouse className="w-10 h-10" />,
+      icon: <Warehouse className="h-7 w-7" />,
       title: "Warehouse Solutions",
       description: "Secure and flexible storage options for goods, catering to diverse business needs with advanced inventory management and distribution support.",
       features: [
@@ -29,10 +30,10 @@ export default function Services() {
         "24/7 security monitoring",
         "Climate-controlled storage"
       ],
-      image: "📦"
+      image: "https://images.unsplash.com/photo-1553413077-190dd305871c?w=900&h=500&fit=crop"
     },
     {
-      icon: <Package className="w-10 h-10" />,
+      icon: <Package className="h-7 w-7" />,
       title: "Art and Sculpture Relocation",
       description: "Specialized handling and transportation for delicate art pieces and sculptures, ensuring maximum safety and preservation during transit with expert care.",
       features: [
@@ -43,10 +44,10 @@ export default function Services() {
         "White-glove service",
         "Professional art handlers"
       ],
-      image: "🎨"
+      image: "https://images.unsplash.com/photo-1513584684374-8bab748fbf90?w=900&h=500&fit=crop"
     },
     {
-      icon: <Truck className="w-10 h-10" />,
+      icon: <Truck className="h-7 w-7" />,
       title: "Logistic Services",
       description: "Comprehensive freight transportation solutions, offering both dedicated full truck loads and flexible part truck loads for efficient and cost-effective delivery across India.",
       features: [
@@ -57,7 +58,7 @@ export default function Services() {
         "Express delivery options",
         "Customized logistics solutions"
       ],
-      image: "🚚"
+      image: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=900&h=500&fit=crop"
     }
   ];
 
@@ -66,31 +67,31 @@ export default function Services() {
       number: "01",
       title: "Initial Inquiry",
       description: "Contact us via phone, email, or website. Our team will understand your requirements and provide preliminary guidance.",
-      icon: <Clock className="w-6 h-6" />
+      icon: <Clock className="h-6 w-6" />
     },
     {
       number: "02",
       title: "Free Quote",
       description: "We provide a detailed, transparent quotation with no hidden costs. Our pricing includes all services, insurance, and applicable taxes.",
-      icon: <CheckCircle className="w-6 h-6" />
+      icon: <CheckCircle className="h-6 w-6" />
     },
     {
       number: "03",
       title: "Booking Confirmation",
       description: "Once you approve the quote, we schedule your pickup date, assign a dedicated coordinator, and begin logistics planning.",
-      icon: <Star className="w-6 h-6" />
+      icon: <Star className="h-6 w-6" />
     },
     {
       number: "04",
       title: "Safe Transportation",
       description: "Our trained professionals carefully load your vehicle, secure them properly, and transport using optimal routes with GPS tracking.",
-      icon: <Truck className="w-6 h-6" />
+      icon: <Truck className="h-6 w-6" />
     },
     {
       number: "05",
       title: "Timely Delivery",
       description: "We deliver to your specified destination, help with unloading, and ensure you're completely satisfied before we consider the job complete.",
-      icon: <MapPin className="w-6 h-6" />
+      icon: <MapPin className="h-6 w-6" />
     }
   ];
 
@@ -122,62 +123,44 @@ export default function Services() {
   ];
 
   return (
-    <div id="services" className="pt-20">
-      {/* Hero Section */}
-      <section className="py-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-orange-600/10 via-transparent to-orange-500/10"></div>
-        
-        {/* Hero Image */}
-        <div className="absolute inset-0 opacity-10">
-          <img 
-            src="https://images.unsplash.com/photo-1519003722824-194d4455a60c?w=1600&h=900&fit=crop" 
-            alt="Logistics warehouse background"
-            className="w-full h-full object-cover"
+    <div id="services" className="bg-slate-50">
+      {/* Intro + Services Grid */}
+      <section className="py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            eyebrow="Our Services"
+            title={<>Comprehensive <Highlight>Logistics Solutions</Highlight></>}
+            description="From single car carriers to warehouse solutions, we provide end-to-end logistics services tailored to your specific needs with unwavering commitment to quality and safety."
           />
-        </div>
-        
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <span className="text-orange-400 font-bold tracking-widest text-sm">OUR SERVICES</span>
-          <h1 className="text-5xl md:text-7xl font-black mt-4 mb-6">
-            Comprehensive <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Logistics Solutions</span>
-          </h1>
-          <p className="text-slate-300 text-xl max-w-3xl mx-auto leading-relaxed">
-            From single car carriers to warehouse solutions, we provide end-to-end logistics services tailored to your specific needs with unwavering commitment to quality and safety.
-          </p>
-        </div>
-      </section>
 
-      {/* Services Grid */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="mt-16 grid gap-8 md:grid-cols-2">
             {services.map((service, index) => (
-              <div
-                key={index}
-                className="group relative bg-gradient-to-br from-slate-900 to-slate-800 p-8 rounded-3xl border border-slate-700 hover:border-orange-500/50 transition-all duration-500 hover:shadow-2xl hover:shadow-orange-500/20"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-600/0 to-orange-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl"></div>
-                
-                <div className="relative z-10">
-                  <div className="flex items-start justify-between mb-6">
-                    <div className="bg-orange-500/10 w-20 h-20 rounded-2xl flex items-center justify-center text-orange-400 group-hover:scale-110 transition-transform duration-300">
-                      {service.icon}
-                    </div>
-                    <span className="text-6xl opacity-50">{service.image}</span>
+              <div key={index} className={`reveal group overflow-hidden ${card}`}>
+                <div className="relative h-56 overflow-hidden">
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent"></div>
+                  <span className="absolute right-5 top-5 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-slate-900 backdrop-blur">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                </div>
+
+                <div className="relative p-8 pt-0">
+                  <div className="-mt-8 mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-violet-900 shadow-lift ring-1 ring-slate-200/80 transition-colors duration-300 group-hover:bg-violet-800 group-hover:text-white">
+                    {service.icon}
                   </div>
-                  
-                  <h3 className="text-2xl font-bold mb-4 group-hover:text-orange-400 transition-colors">
-                    {service.title}
-                  </h3>
-                  
-                  <p className="text-slate-400 mb-6 leading-relaxed">
-                    {service.description}
-                  </p>
-                  
-                  <div className="space-y-3">
+
+                  <h3 className="text-2xl font-bold text-slate-900">{service.title}</h3>
+                  <p className="mt-3 leading-relaxed text-slate-600">{service.description}</p>
+
+                  <div className="mt-6 grid gap-x-4 gap-y-3 border-t border-slate-100 pt-6 sm:grid-cols-2">
                     {service.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-start gap-3 text-slate-300">
-                        <CheckCircle className="w-5 h-5 text-orange-400 flex-shrink-0 mt-0.5" />
+                      <div key={idx} className="flex items-start gap-2.5 text-sm text-slate-700">
+                        <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-violet-800" />
                         <span>{feature}</span>
                       </div>
                     ))}
@@ -190,99 +173,93 @@ export default function Services() {
       </section>
 
       {/* Our Process Section */}
-      <section className="py-24 bg-slate-900/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <span className="text-orange-400 font-bold tracking-widest text-sm">HOW WE WORK</span>
-            <h2 className="text-4xl md:text-6xl font-black mt-4 mb-6">
-              Our Service <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Process</span>
-            </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              We've streamlined our operations to make your relocation experience as smooth and hassle-free as possible.
-            </p>
-          </div>
+      <section className="bg-white py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <SectionHeading
+            eyebrow="How We Work"
+            title={<>Our Service <Highlight>Process</Highlight></>}
+            description="We've streamlined our operations to make your relocation experience as smooth and hassle-free as possible."
+          />
 
-          <div className="grid md:grid-cols-5 gap-8">
-            {processSteps.map((step, index) => (
-              <div key={index} className="relative">
-                {index < processSteps.length - 1 && (
-                  <div className="hidden md:block absolute top-12 left-full w-full h-0.5 bg-gradient-to-r from-orange-500 to-transparent"></div>
-                )}
-                
-                <div className="bg-slate-800/50 p-6 rounded-2xl border border-slate-700 hover:border-orange-500/50 transition-all duration-300 h-full">
-                  <div className="bg-gradient-to-br from-orange-600 to-orange-500 w-12 h-12 rounded-xl flex items-center justify-center text-white font-black text-xl mb-4">
+          <div className="relative mt-16">
+            {/* Connector line */}
+            <div className="absolute left-0 right-0 top-7 hidden h-0.5 bg-gradient-to-r from-violet-200 via-violet-400 to-violet-200 lg:block"></div>
+
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+              {processSteps.map((step, index) => (
+                <div key={index} className="reveal relative" style={{ transitionDelay: `${index * 80}ms` }}>
+                  <div className="relative z-10 mx-auto mb-6 hidden h-14 w-14 items-center justify-center rounded-full bg-white text-lg font-extrabold text-violet-900 shadow-soft ring-4 ring-violet-100 lg:flex">
                     {step.number}
                   </div>
-                  
-                  <div className="text-orange-400 mb-3">
-                    {step.icon}
+                  <div className="h-full rounded-3xl bg-slate-50 p-6 ring-1 ring-slate-200/70 transition-all duration-300 hover:bg-white hover:shadow-lift">
+                    <div className="mb-4 flex items-center justify-between">
+                      <IconBadge size="sm">{step.icon}</IconBadge>
+                      <span className="text-3xl font-extrabold text-slate-200 lg:hidden">{step.number}</span>
+                    </div>
+                    <h3 className="mb-2 text-lg font-bold text-slate-900">{step.title}</h3>
+                    <p className="text-sm leading-relaxed text-slate-600">{step.description}</p>
                   </div>
-                  
-                  <h3 className="text-lg font-bold mb-2 text-white">{step.title}</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">{step.description}</p>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Safety Commitment Section */}
       <section className="py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <span className="text-orange-400 font-bold tracking-widest text-sm">SAFETY FIRST</span>
-              <h2 className="text-4xl md:text-5xl font-black mt-4 mb-6">
-                Our Commitment to <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Safety</span>
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-16 lg:grid-cols-2">
+            <div className="reveal">
+              <Eyebrow>Safety First</Eyebrow>
+              <h2 className="mt-5 text-4xl font-extrabold tracking-tight text-slate-900 md:text-5xl">
+                Our Commitment to <Highlight>Safety</Highlight>
               </h2>
-              <p className="text-slate-300 text-lg mb-8 leading-relaxed">
+              <p className="mt-6 text-lg leading-relaxed text-slate-600">
                 At RV Trans Logistics LLP, safety is not just a priority—it's the foundation of everything we do. We understand that you're entrusting us with your valuable assets.
               </p>
-              
-              <div className="grid sm:grid-cols-2 gap-4 mb-8">
-                <div className="bg-slate-800/50 p-6 rounded-2xl text-center border border-slate-700">
-                  <div className="text-4xl font-black text-orange-400 mb-2">99.8%</div>
-                  <div className="text-slate-300 text-sm">Safety Record</div>
+
+              <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                <div className="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-slate-200/80">
+                  <div className="text-4xl font-extrabold text-slate-900">99.8%</div>
+                  <div className="mt-1 text-sm font-semibold text-violet-900">Safety Record</div>
                 </div>
-                <div className="bg-slate-800/50 p-6 rounded-2xl text-center border border-slate-700">
-                  <div className="text-4xl font-black text-orange-400 mb-2">10K+</div>
-                  <div className="text-slate-300 text-sm">Safe Deliveries</div>
+                <div className="rounded-3xl bg-white p-6 shadow-soft ring-1 ring-slate-200/80">
+                  <div className="text-4xl font-extrabold text-slate-900">10K+</div>
+                  <div className="mt-1 text-sm font-semibold text-violet-900">Safe Deliveries</div>
                 </div>
               </div>
 
-              <a
-                href="#contact"
-                className="inline-block bg-gradient-to-r from-orange-600 to-orange-500 px-8 py-4 rounded-full font-bold hover:shadow-lg hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105"
-              >
+              <a href="#contact" className={`${btn.primary} mt-8`}>
                 Get Your Free Quote
               </a>
             </div>
 
-            <div className="relative">
-              {/* Main Safety Image */}
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl">
-                <img 
-                  src="https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?w=800&h=900&fit=crop" 
-                  alt="Secure vehicle loading and transportation"
-                  className="w-full h-[600px] object-cover"
+            <div className="reveal relative">
+              <div className="relative overflow-hidden rounded-[2.5rem] shadow-lift">
+                <img
+                  src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=800&h=900&fit=crop"
+                  alt="Technician inspecting a vehicle before transport"
+                  className="h-[600px] w-full object-cover"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
               </div>
-              
+
               {/* Floating Safety Features */}
-              <div className="absolute bottom-6 left-6 right-6 space-y-4">
+              <div className="absolute bottom-6 left-6 right-6 space-y-3">
                 {safetyFeatures.slice(0, 3).map((feature, index) => (
                   <div
                     key={index}
-                    className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 transform hover:scale-105 transition-all duration-300"
+                    className="rounded-2xl bg-white/90 p-4 shadow-soft ring-1 ring-white/60 backdrop-blur-xl transition-transform duration-300 hover:-translate-y-0.5"
                   >
                     <div className="flex items-start gap-3">
-                      <ShieldCheck className="w-5 h-5 text-orange-400 flex-shrink-0 mt-1" />
+                      <IconBadge size="sm" className="!h-9 !w-9">
+                        <ShieldCheck className="h-4 w-4" />
+                      </IconBadge>
                       <div>
-                        <h3 className="text-white font-bold text-sm mb-1">{feature.title}</h3>
-                        <p className="text-slate-200 text-xs leading-relaxed">{feature.description}</p>
+                        <h3 className="text-sm font-bold text-slate-900">{feature.title}</h3>
+                        <p className="mt-0.5 text-xs leading-relaxed text-slate-600">{feature.description}</p>
                       </div>
                     </div>
                   </div>
@@ -290,21 +267,18 @@ export default function Services() {
               </div>
             </div>
           </div>
-          
+
           {/* Additional Safety Features Grid */}
-          <div className="grid md:grid-cols-3 gap-6 mt-16">
+          <div className="mt-16 grid gap-6 md:grid-cols-3">
             {safetyFeatures.slice(3).map((feature, index) => (
-              <div
-                key={index}
-                className="bg-slate-800/50 backdrop-blur-sm p-6 rounded-2xl border border-slate-700 hover:border-orange-500/50 transition-all duration-300"
-              >
+              <div key={index} className={`reveal p-6 ${card}`}>
                 <div className="flex items-start gap-4">
-                  <div className="bg-orange-500/10 p-3 rounded-xl flex-shrink-0">
-                    <ShieldCheck className="w-6 h-6 text-orange-400" />
-                  </div>
+                  <IconBadge size="sm">
+                    <ShieldCheck className="h-5 w-5" />
+                  </IconBadge>
                   <div>
-                    <h3 className="text-lg font-bold mb-2 text-white">{feature.title}</h3>
-                    <p className="text-slate-400 text-sm leading-relaxed">{feature.description}</p>
+                    <h3 className="mb-2 text-lg font-bold text-slate-900">{feature.title}</h3>
+                    <p className="text-sm leading-relaxed text-slate-600">{feature.description}</p>
                   </div>
                 </div>
               </div>
@@ -313,32 +287,19 @@ export default function Services() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-24 bg-gradient-to-br from-slate-900 via-orange-950/20 to-slate-900">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-black mb-6">
-            Ready to Get <span className="bg-gradient-to-r from-orange-400 to-orange-600 bg-clip-text text-transparent">Started?</span>
-          </h2>
-          <p className="text-slate-300 text-xl mb-8 max-w-2xl mx-auto">
-            Contact us today for a free consultation and experience hassle-free relocation with India's most trusted logistics partner.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="tel:+917988519924"
-              className="bg-gradient-to-r from-orange-600 to-orange-500 px-10 py-4 rounded-full font-bold text-lg hover:shadow-2xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105"
-            >
-              Call: +91-7988519924
-            </a>
-            <a
-              href="mailto:rvtranslogistics@gmail.com"
-              className="border-2 border-orange-500 px-10 py-4 rounded-full font-bold text-lg hover:bg-orange-500/10 transition-all duration-300"
-            >
-              Email: rvtranslogistics@gmail.com
-            </a>
-          </div>
-        </div>
-      </section>
+      <CTAStrip
+        title={<>Ready to Get <Highlight>Started?</Highlight></>}
+        description="Contact us today for a free consultation and experience hassle-free relocation with India's most trusted logistics partner."
+      >
+        <a href="tel:+917988519924" className={btn.primary}>
+          <Phone className="h-5 w-5" />
+          Call: +91-7988519924
+        </a>
+        <a href="mailto:rvtranslogistics@gmail.com" className={btn.outline}>
+          <Mail className="h-5 w-5" />
+          Email Us
+        </a>
+      </CTAStrip>
     </div>
   );
 }
